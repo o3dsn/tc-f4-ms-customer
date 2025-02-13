@@ -6,22 +6,27 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "addresses")
+@Entity(name = "credit_card")
+@Table
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AddressEntity {
+public class CreditCardEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String street;
+  @Column(length = 16)
   private String number;
-  private String neighborhood;
-  private String city;
-  private String state;
-  private String zipCode;
-  private String additionalInfo;
+
+  private String holderName;
+
+  @Column(length = 2)
+  private String expirationMonth;
+
+  @Column(length = 4)
+  private String expirationYear;
+
+  private String brand;
 }

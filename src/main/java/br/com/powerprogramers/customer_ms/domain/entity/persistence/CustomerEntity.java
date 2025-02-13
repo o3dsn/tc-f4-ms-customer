@@ -23,4 +23,8 @@ public class CustomerEntity {
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "address_id", referencedColumnName = "id")
   private AddressEntity address;
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "credit_card_id", referencedColumnName = "id")
+  private CreditCardEntity creditCard;
 }

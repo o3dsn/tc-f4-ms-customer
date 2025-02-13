@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Customer {
-  private String name;
-  private String lastName;
-  private Address address;
-  private CreditCard creditCard;
+public class CreditCard {
+  private String number;
+  private String holderName;
+  private String expirationMonth;
+  private String expirationYear;
+  private String brand;
 }

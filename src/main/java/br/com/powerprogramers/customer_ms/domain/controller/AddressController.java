@@ -12,7 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/cep")
 public class AddressController {
-  @Autowired private AddressService addressService;
+  private final AddressService addressService;
+
+  @Autowired
+  public AddressController(final AddressService addressService) {
+    this.addressService = addressService;
+  }
 
   @GetMapping("/{cep}")
   public ResponseEntity<AddressEntity> getCep(@PathVariable String cep) {

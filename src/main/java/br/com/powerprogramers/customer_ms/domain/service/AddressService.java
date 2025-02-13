@@ -7,7 +7,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AddressService {
-  @Autowired private AddressUseCase addressUseCase;
+  private final AddressUseCase addressUseCase;
+
+  @Autowired
+  public AddressService(AddressUseCase addressUseCase) {
+    this.addressUseCase = addressUseCase;
+  }
 
   public AddressEntity getAddressByCEP(String cep) {
     if (cep == null || cep.isEmpty()) {
