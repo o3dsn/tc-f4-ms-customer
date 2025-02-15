@@ -6,8 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "credit_card")
-@Table
+@Entity
+@Table(name = "credit_card")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

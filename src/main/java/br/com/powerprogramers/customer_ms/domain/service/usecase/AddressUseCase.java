@@ -1,7 +1,7 @@
 package br.com.powerprogramers.customer_ms.domain.service.usecase;
 
-import br.com.powerprogramers.customer_ms.client.viacep.ViaCEPAddress;
-import br.com.powerprogramers.customer_ms.client.viacep.ViaCEPClient;
+import br.com.powerprogramers.customer_ms.domain.gateway.ViaCEPAddress;
+import br.com.powerprogramers.customer_ms.domain.gateway.ViaCEPClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

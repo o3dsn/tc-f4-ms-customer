@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: customer-ms
+
+  datasource:
+    hikari:
+      pool-name: customer-ms
+      maximum-pool-size: 5
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+    url: jdbc:postgresql://localhost:5432/ms-customer
+    driver-class-name: org.postgresql.Driver
+    username: root
+    password: secret
+  cloud:
+    function:
+      web:
+        path: /api
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 30000
+        readTimeout: 90000
+        loggerLevel: basic
+  httpclient:
+    disableSslValidation: true
+    enabled: false
+  okhttp:
+    enabled: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    instanceId: ${spring.application.name}

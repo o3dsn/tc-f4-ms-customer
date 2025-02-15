@@ -33,4 +33,10 @@ public class CustomerController {
   public ResponseEntity<CustomerDTO> findById(@PathVariable Long id) {
     return ResponseEntity.ok(customerService.findById(id));
   }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
+    customerService.delete(id);
+    return ResponseEntity.noContent().build();
+  }
 }

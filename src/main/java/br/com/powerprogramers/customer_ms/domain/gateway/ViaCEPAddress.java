@@ -1,4 +1,4 @@
-package br.com.powerprogramers.customer_ms.client.viacep;
+package br.com.powerprogramers.customer_ms.domain.gateway;
 
 public record ViaCEPAddress(
     String localidade,
