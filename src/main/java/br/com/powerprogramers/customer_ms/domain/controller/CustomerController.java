@@ -1,5 +1,6 @@
 package br.com.powerprogramers.customer_ms.domain.controller;
 
+import br.com.powerprogramers.customer_ms.domain.dto.AddressDTO;
 import br.com.powerprogramers.customer_ms.domain.dto.CustomerDTO;
 import br.com.powerprogramers.customer_ms.domain.service.CustomerService;
 import java.util.List;
@@ -32,6 +33,11 @@ public class CustomerController {
   @GetMapping("/{id}")
   public ResponseEntity<CustomerDTO> findById(@PathVariable Long id) {
     return ResponseEntity.ok(customerService.findById(id));
+  }
+
+  @GetMapping("/{id}/address")
+  public ResponseEntity<AddressDTO> findAddressByCustomerId(@PathVariable Long id) {
+    return ResponseEntity.ok(customerService.findAddressByCustomerId(id));
   }
 
   @DeleteMapping("/{id}")

@@ -1,9 +1,11 @@
 package br.com.powerprogramers.customer_ms.domain.service;
 
+import br.com.powerprogramers.customer_ms.domain.dto.AddressDTO;
 import br.com.powerprogramers.customer_ms.domain.dto.CustomerDTO;
 import br.com.powerprogramers.customer_ms.domain.entity.domain.Customer;
 import br.com.powerprogramers.customer_ms.domain.entity.persistence.CustomerEntity;
 import br.com.powerprogramers.customer_ms.domain.exception.CustomerNotFoundException;
+import br.com.powerprogramers.customer_ms.domain.mappers.AddressMapper;
 import br.com.powerprogramers.customer_ms.domain.mappers.CustomerMapper;
 import br.com.powerprogramers.customer_ms.domain.repository.CustomerRepository;
 import br.com.powerprogramers.customer_ms.domain.service.usecase.CreateCustomerUseCase;
@@ -44,8 +46,14 @@ public class CustomerService {
 
   public CustomerDTO findById(Long id) {
     CustomerEntity entity =
-        customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
+        customerRepository.findById(id).orElseThrow(CustomerNotFoundException::new);
     return CustomerMapper.toDTO(entity);
+  }
+
+  public AddressDTO findAddressByCustomerId(Long id) {
+    CustomerEntity entity =
+        customerRepository.findById(id).orElseThrow(CustomerNotFoundException::new);
+    return AddressMapper.toDTO(entity.getAddress());
   }
 
   public void delete(Long id) {
