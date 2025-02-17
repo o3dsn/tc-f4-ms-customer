@@ -10,37 +10,39 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-  @ExceptionHandler(CustomerNotFoundException.class)
-  public ResponseEntity<Map<String, Object>> handleCustomerNotFoundException(
-      CustomerNotFoundException ex) {
+
+  @ExceptionHandler({
+    CreateCustomerUseCaseException.class,
+    CustomerNotFoundException.class,
+    ExternalServiceException.class,
+    CustomerHasOpenOrdersException.class
+  })
+  public ResponseEntity<Map<String, Object>> handleCustomExceptions(RuntimeException ex) {
     Map<String, Object> response = new HashMap<>();
+    HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+    String message = ex.getMessage();
+
+    if (ex instanceof CreateCustomerUseCaseException customException) {
+      status = customException.getStatus();
+    }
+
+    if (ex instanceof CustomerNotFoundException customException) {
+      status = customException.getStatus();
+    }
+
+    if (ex instanceof ExternalServiceException customException) {
+      status = customException.getStatus();
+    }
+
+    if (ex instanceof CustomerHasOpenOrdersException customException) {
+      status = customException.getStatus();
+    }
+
     response.put("timestamp", LocalDateTime.now());
-    response.put("status", HttpStatus.NOT_FOUND.value());
-    response.put("error", "Not Found");
-    response.put("message", ex.getMessage());
+    response.put("status", status.value());
+    response.put("error", status.getReasonPhrase());
+    response.put("message", message);
 
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-  }
-
-  @ExceptionHandler(ExternalServiceException.class)
-  public ResponseEntity<Map<String, Object>> handleExternalServiceException(Exception ex) {
-    Map<String, Object> response = new HashMap<>();
-    response.put("timestamp", LocalDateTime.now());
-    response.put("status", HttpStatus.SERVICE_UNAVAILABLE.value());
-    response.put("error", "Service Unavailable");
-    response.put("message", ex.getMessage());
-
-    return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(response);
-  }
-
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<Map<String, Object>> handleGenericException(Exception ex) {
-    Map<String, Object> response = new HashMap<>();
-    response.put("timestamp", LocalDateTime.now());
-    response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
-    response.put("error", "Internal Server Error");
-    response.put("message", "An unexpected error occurred");
-
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+    return ResponseEntity.status(status.value()).body(response);
   }
 }

@@ -13,7 +13,7 @@ public class DeleteCustomerUseCase {
 
   public void execute(Long id) {
     try {
-      boolean hasOpenOrders = msOrderManagerClient.getOpenOrdersByCustomerId(Long.toString(id));
+      boolean hasOpenOrders = msOrderManagerClient.getOpenOrdersByCustomerId(id);
       if (hasOpenOrders) {
         throw new CustomerHasOpenOrdersException();
       }
