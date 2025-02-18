@@ -37,6 +37,7 @@ public class CustomerMapper {
     dto.setName(entity.getName());
     dto.setLastName(entity.getLastName());
     dto.setAddress(AddressMapper.toDTO(entity.getAddress()));
+    dto.setCreditCard(CreditCardMapper.toDTO(entity.getCreditCard()));
     return dto;
   }
 }
